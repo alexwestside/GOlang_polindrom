@@ -21,17 +21,20 @@ func check_polindrom(Num1 int, Num2 int, start time.Time) {
 	res1 := strconv.Itoa(res)
 	res2 := Reverse(res1)
 	if res1 == res2 {
-		fmt.Println(res)
-		end := time.Now()
-		elapsed := end.Sub(start)
-		fmt.Println(elapsed)
+		fmt.Print("Number 1 = ", Num1, "\n")
+		fmt.Print("Number 2 = ", Num2, "\n")
+		fmt.Println("Result = ", res, "\n")
+		fmt.Println(time.Now().Sub(start))
 		os.Exit(0)
 	}
 }
 
-func find_next_prime(num int, start time.Time) {
+func find_next_prime(num int, start time.Time, res int) {
 	for i := 0; i < num; i++ {
 		_num := num - i
+		if (len(strconv.Itoa(_num)) < res){
+			return
+		}
 		if chekPrime(_num) {
 			check_polindrom(int(num), int(_num), start)
 		}
@@ -55,8 +58,8 @@ func main() {
 	pr := math.Pow10(res - 1)
 	for i := 0; i < int(pr); i++ {
 		_num := int(num) - i
-		if chekPrime(_num) {
-			find_next_prime(_num, start)
+		if chekPrime(int(num) - i) {
+			find_next_prime(_num, start, res)
 		}
 	}
 }
